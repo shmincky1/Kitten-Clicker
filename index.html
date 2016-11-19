@@ -3,8 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>Kitten Klicker</title>
+    <link rel="stylesheet" href="css/master.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </head>
-  <body>
-
+  <body onload="onLoad()">
+    <button class="actionButton" onclick="makeFood()">Make Food!</button>
+    <p class="feildTitle">
+      Kitten Food:
+    </p>
+    <p id="foodCount">
+      0
+    </p>
+    <button class="actionButton" onclick="putOutFood()">Put Out Food!</button>
+    <p class="feildTitle">
+      Kittens:
+    </p>
+    <p id="kittenCount">
+      0
+    </p>
+    <p id="notEnoughFood">
+      NOT ENOUGH FOOD!
+    </p>
+    <script src="js/clicker.js"></script>
   </body>
 </html>
