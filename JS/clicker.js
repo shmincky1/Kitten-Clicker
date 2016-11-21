@@ -1,16 +1,41 @@
+// universal variables
 var foodCount = 0;
 var kittenCount = 0;
+var NEFMessage = true;
+
+// universal functions
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+// onload stuff
+$('document').onLoad(function() {
+  while (true) {
+    // eventually this will keep the counters synced with the variables
+    // $('')
+  }
+});
 
 function onLoad() {
-  $('#foodCount').innerHTML = foodCount;
-  $('#kittenCount').innerHTML = kittenCount;
+  $('#foodCount').html(foodCount);
+  $('#kittenCount').html(kittenCount);
+  $('#notEnoughFood').hide();
+  NEFMessage = false;
 }
 
-function wait(milliseconds){
-  setTimeout(function() {
-    console.log("Waiting has finished.");
-  }, milliseconds);
-}
+// function wait(milliseconds){
+//   setTimeout(function() {
+//     console.log("Waiting has finished.");
+//   }, milliseconds);
+// }
+
+// Usage!
+
+// async function demo() {
+//   console.log('Taking a break...');
+//   await sleep(2000);
+//   console.log('Two second later');
+// }
 
 function makeFood() {
   foodCount++;
@@ -18,16 +43,17 @@ function makeFood() {
 }
 
 function putOutFood() {
-  if(foodCount >= 1){
+  if (foodCount >= 1){
     foodCount--;
     kittenCount++;
-    $('#foodCount').HTML = foodCount;
-    $('#kittenCount').innerHTML = kittenCount;
-  } else {
-    $('#notEnoughFood').hide();
-    wait(100);
+    $('#foodCount').html(foodCount);
+    $('#kittenCount').html(kittenCount);
+  } else if (NEFMessage == false) {
+    NEFMessage = true;
     $('#notEnoughFood').show();
-    wait(3000);
-    $('#notEnoughFood').hide();
+    sleep(3000).then(() => {
+      $('#notEnoughFood').hide();
+      NEFMessage = false;
+    });
   }
 }
