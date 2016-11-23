@@ -8,7 +8,8 @@ function sleep (time) {
 }
 
 // things to do when page loads
-window.onLoad = function() {
+function onLoad() {
+  // this stuff gets run only once on page load
   $('#foodCount').innerHTML = foodCount;
   $('#kittenCount').innerHTML = kittenCount;
   $('#notEnoughFood').hide();
