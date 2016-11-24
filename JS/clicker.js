@@ -27,8 +27,6 @@ $('#putOutFood').click(function(){
   if (foodCount >= 1) {
     foodCount--;
     kittenCount++;
-    $('#foodCount').html(foodCount);
-    $('#kittenCount').html(kittenCount);
   } else if (NEFMessage == false) {
     NEFMessage = true;
     $('#notEnoughFood').show();
