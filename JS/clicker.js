@@ -1,27 +1,20 @@
 var foodCount = 0;
 var kittenCount = 0;
 var NEFMessage = true;
-var runGameLoop = false;
 
 // universal/common functions
-function sleep(time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
-
 function gameLoop() {
-  while (runGameLoop == true) {
-    $('#foodCount').innerHTML = foodCount;
-    $('#kittenCount').innerHTML = kittenCount;
-  }
+  $('#foodCount').html(foodCount);
+  $('#kittenCount').html(kittenCount);
+  setTimeout(gameLoop, 10);
 }
 
 // things to do when page loads
 function onLoad() {
   // this stuff gets run only once on page load
-  $('#foodCount').innerHTML = foodCount;
-  $('#kittenCount').innerHTML = kittenCount;
   $('#notEnoughFood').hide();
   NEFMessage = false;
+  gameLoop();
 }
 
 // button actions
@@ -34,14 +27,14 @@ $('#putOutFood').click(function(){
   if (foodCount >= 1) {
     foodCount--;
     kittenCount++;
-    // $('#foodCount').html(foodCount);
-    // $('#kittenCount').html(kittenCount);
+    $('#foodCount').html(foodCount);
+    $('#kittenCount').html(kittenCount);
   } else if (NEFMessage == false) {
     NEFMessage = true;
     $('#notEnoughFood').show();
-    sleep(3000).then(() => {
+    setTimeout(function() {
       $('#notEnoughFood').hide();
       NEFMessage = false;
-    });
+    }, 3000);
   }
 });

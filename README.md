@@ -1,4 +1,4 @@
-# Kitten Klicker
+# Kitten Clicker
 A cookie clicker rip-off made for fun with a kitten theme.
 
 ## Description
