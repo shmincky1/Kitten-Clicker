@@ -1,12 +1,19 @@
+// count variables
 var foodCount = 0;
 var kittenCount = 0;
+var 
+// ui variables
 var NEFMessage = true;
 
-// universal/common functions
-function gameLoop() {
+// central loop functions
+function displayLoop() {
   $('#foodCount').html(foodCount);
   $('#kittenCount').html(kittenCount);
-  setTimeout(gameLoop, 10);
+  setTimeout(displayLoop, 10);
+}
+
+function logicLoop() {
+  
 }
 
 // things to do when page loads
@@ -14,13 +21,13 @@ function onLoad() {
   // this stuff gets run only once on page load
   $('#notEnoughFood').hide();
   NEFMessage = false;
-  gameLoop();
+  displayLoop();
+  
 }
 
 // button actions
 $('#makeFood').click(function(){
     foodCount++;
-    // $('#foodCount').html(foodCount)
 });
 
 $('#putOutFood').click(function(){
