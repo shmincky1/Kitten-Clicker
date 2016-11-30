@@ -5,6 +5,8 @@ var kittenFedCount = 0;
 var kittenFedDiff = kittenCount - kittenFedCount;
 var dayNumber = 1;
 var dayCountdown = 0;
+var dayRunning = false;
+var endDay = false;
 // ui variables
 var NEFMessage = true;
 
@@ -19,16 +21,26 @@ function displayLoop() {
 
 // daily functions
 function dayEvent() {
-  dayCountdown = 60;
-  function dayCountdownFunction() {
-    if (countdown > 0) {
-      dayCountdown--;
-      setTimeout(dayCountdownFunction, 1000)
+  if (dayRunning == false) {
+    dayRunning = true;
+    dayCountdown = 60;
+    function dayCountdownFunction() {
+      if (dayCountdown > 0) {
+        dayCountdown--;
+        setTimeout(dayCountdownFunction, 1000);
+      } else {
+        endDay = true;
+      }
     }
+    dayCountdownFunction();
   }
-  kittenCount -= kittenFedDiff;
-  dayNumber++;
-  setTimeout(dayEvent, 1)
+  if (endDay == true) {
+    endDay = false;
+    kittenCount -= kittenFedDiff;
+    dayNumber++;
+    dayRunning = false;
+  }
+  setTimeout(dayEvent, 10);
 }
 
 // things to do when page loads
