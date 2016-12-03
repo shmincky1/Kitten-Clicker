@@ -2,7 +2,7 @@
 var foodCount = 0;
 var kittenCount = 0;
 var kittenFedCount = 0;
-var kittenFedDiff = kittenCount - kittenFedCount;
+var kittenFedDiff = 0;
 var dayNumber = 1;
 var dayCountdown = 0;
 var dayRunning = false;
@@ -15,8 +15,26 @@ function displayLoop() {
   $('#foodCount').html(foodCount);
   $('#kittenCount').html(kittenCount);
   $('#dayCountdown').html(dayCountdown);
-  $('#dayNumber').html(dayNumber)
+  $('#dayNumber').html(dayNumber);
+  if (dayCountdown <= 10) {
+    $('#dayCountdownFeild').css('color', 'red');
+  } else if (dayCountdown == 60 || dayCountdown == 59) {
+    $('#dayCountdownFeild').css("color", "black");
+  }
   setTimeout(displayLoop, 10);
+}
+
+// universal helper functions
+var doTheGoodDiff = function(kittens, food){
+  if (kittens > food) {
+    return kittens-food;
+  } else {
+    return 0;
+  }
+};
+
+function feedKittens(kittens, diff) {
+  foodCount -= kittens - diff;
 }
 
 // daily functions
@@ -36,11 +54,18 @@ function dayEvent() {
   }
   if (endDay == true) {
     endDay = false;
+    kittenFedDiff = doTheGoodDiff(kittenCount, foodCount);
+    feedKittens(kittenCount, kittenFedDiff);
     kittenCount -= kittenFedDiff;
+    if (kittenFedDiff != 0) {
+      console.log(kittenFedDiff + " kittens were killed, make sure you have enough food to feed all of your kittens at the end of the day next time");
+    } else {
+      console.log("No kittens were killed today!");
+    }
     dayNumber++;
     dayRunning = false;
   }
-  setTimeout(dayEvent, 10);
+  setTimeout(dayEvent, 20);
 }
 
 // things to do when page loads
