@@ -16,18 +16,18 @@ function displayLoop() {
   $('#kittenCount').html(kittenCount);
   $('#dayCountdown').html(dayCountdown);
   $('#dayNumber').html(dayNumber);
-  if (dayCountdown <= 10) {
+  if (dayCountdown == 10) {
     $('#dayCountdownFeild').css('color', 'red');
-  } else if (dayCountdown == 60 || dayCountdown == 59) {
+  } else if (dayCountdown == 60) {
     $('#dayCountdownFeild').css("color", "black");
   }
   setTimeout(displayLoop, 10);
 }
 
 // universal helper functions
-var doTheGoodDiff = function(kittens, food){
+var doTheGoodDiff = function(kittens, food) {
   if (kittens > food) {
-    return kittens-food;
+    return kittens - food;
   } else {
     return 0;
   }
@@ -42,6 +42,7 @@ function dayEvent() {
   if (dayRunning == false) {
     dayRunning = true;
     dayCountdown = 60;
+
     function dayCountdownFunction() {
       if (dayCountdown > 0) {
         dayCountdown--;
