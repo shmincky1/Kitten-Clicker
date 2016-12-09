@@ -16,9 +16,9 @@ function displayLoop() {
   $('#kittenCount').html(kittenCount);
   $('#dayCountdown').html(dayCountdown);
   $('#dayNumber').html(dayNumber);
-  if (dayCountdown == 10) {
+  if (dayCountdown == 10 || dayCountdown == 9) {
     $('#dayCountdownFeild').css('color', 'red');
-  } else if (dayCountdown == 60) {
+  } else if (dayCountdown == 60 || dayCountdown == 59) {
     $('#dayCountdownFeild').css("color", "black");
   }
   setTimeout(displayLoop, 10);
