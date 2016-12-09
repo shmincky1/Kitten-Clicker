@@ -19,6 +19,10 @@
 
 /* other stuff */
 
+*:focus {
+  outline: none;
+}
+
 .feildTitle, .actionButton {
   display: inline;
 }
