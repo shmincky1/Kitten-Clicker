@@ -1,19 +1,32 @@
-// variables
+// count variables
 var foodCount = 0;
 var kittenCount = 0;
 var kittenFedCount = 0;
-var kittenFedDiff = 0;
+var foodFactoryCount = 0;
+var dispenseryCount = 0;
+// time(day) variables
 var dayNumber = 1;
 var dayCountdown = 0;
 var dayRunning = false;
 var endDay = false;
+// actioner time variables
+var foodFactoryOldTime = new Date().getTime();
+var dispenseryOldTime = new Date().getTime();
+// actioner active variables
+var foodFactoryActive = false;
+var dispenseryActive = false;
+// actioner multipliers
+var foodFactoryMultiplier = 0.001;
+var dispenseryMultiplier = 0.001;
 // ui variables
 var NEFMessage = true;
+// misc variables
+var kittenFedDiff = 0;
 
 // display loop functions
 function displayLoop() {
-  $('#foodCount').html(foodCount);
-  $('#kittenCount').html(kittenCount);
+  $('#foodCount').html(Math.round(foodCount));
+  $('#kittenCount').html(Math.round(kittenCount));
   $('#dayCountdown').html(dayCountdown);
   $('#dayNumber').html(dayNumber);
   if (dayCountdown == 10 || dayCountdown == 9) {
@@ -35,6 +48,10 @@ var doTheGoodDiff = function(kittens, food) {
 
 function feedKittens(kittens, diff) {
   foodCount -= kittens - diff;
+}
+
+function autoIncreaseEquation(multiplier, count, newTime, oldTime) {
+  return multiplier * count * (newTime - oldTime);
 }
 
 // daily functions
@@ -66,7 +83,27 @@ function dayEvent() {
     dayNumber++;
     dayRunning = false;
   }
-  setTimeout(dayEvent, 20);
+  setTimeout(dayEvent, 50);
+}
+
+// auto generaters/actioners
+function actioners() {
+  if (foodFactoryActive == true) {
+    function foodFactoryAction() {
+      var innerNewTime = new Date().getTime();
+      foodCount += autoIncreaseEquation(foodFactoryMultiplier, foodFactoryCount, innerNewTime, foodFactoryOldTime);
+      foodFactoryOldTime = innerNewTime;
+    }
+    foodFactoryAction();
+  }
+  if (dispenseryActive == true) {
+    function dispenseryAction() {
+      // nada hoy
+    }
+    dispenseryAction();
+  }
+  // new Date().getTime()
+  setTimeout(actioners, 45);
 }
 
 // things to do when page loads
@@ -76,6 +113,7 @@ function onLoad() {
   NEFMessage = false;
   displayLoop();
   dayEvent();
+  actioners();
 }
 
 // button actions
