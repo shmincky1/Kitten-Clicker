@@ -10,6 +10,7 @@ Game starts with user having to make kitten food manually, which lets them lure 
   * Includes statistics:
     * Max number of kittens
 * Multiplayer co-op??
+* Colonies??
 
 # System Requirements
 * Server:

@@ -40,7 +40,7 @@ var kittenFedDiff = 0;
 // messages shown
 var messagesShown = {
   makeSureEnoughFoodEreday: false
-    // etc
+  // etc
 };
 
 
