@@ -1,11 +1,13 @@
-// count variables
+// count variables other thea
+var count = {
+  kittenFood: 0,
+  kittens: {total: 0, occupied: 0, free: function() {return (count.kittens.total - count.kittens.occupied);}, fed: 0}
+}
 var foodCount = 0;
 var kittenCount = 0;
 var occupiedKittenCount = 0;
 var freeKittenCount = 0;
 var kittenFedCount = 0;
-var foodFactoryCount = 0;
-var dispenseryCount = 0;
 
 // time(day) variables
 var day = {
@@ -20,13 +22,15 @@ var day = {
 var foodFactory = {
   oldTime: new Date().getTime(),
   active: false,
-  multiplier: 0.001
+  multiplier: 0.001,
+  count: 0
 }
 
 var dispensery = {
   oldTime: new Date().getTime(),
   active: false,
-  multiplier: 0.001
+  multiplier: 0.001,
+  count: 0
 }
 
 // ui variables
@@ -113,7 +117,7 @@ function actioners() {
   if (foodFactory.active == true) {
     function foodFactoryAction() {
       var innerNewTime = new Date().getTime();
-      foodCount += autoIncreaseEquation(foodFactory.multiplier, foodFactoryCount, innerNewTime, foodFactory.oldTime);
+      foodCount += autoIncreaseEquation(foodFactory.multiplier, foodFactory.count, innerNewTime, foodFactory.oldTime);
       foodFactory.oldTime = innerNewTime;
     }
     foodFactoryAction();
