@@ -1,37 +1,59 @@
 // count variables
 var foodCount = 0;
 var kittenCount = 0;
+var occupiedKittenCount = 0;
+var freeKittenCount = 0;
 var kittenFedCount = 0;
 var foodFactoryCount = 0;
 var dispenseryCount = 0;
+
 // time(day) variables
-var dayNumber = 1;
-var dayCountdown = 0;
-var dayRunning = false;
-var endDay = false;
-// actioner time variables
-var foodFactoryOldTime = new Date().getTime();
-var dispenseryOldTime = new Date().getTime();
-// actioner active variables
-var foodFactoryActive = false;
-var dispenseryActive = false;
-// actioner multipliers
-var foodFactoryMultiplier = 0.001;
-var dispenseryMultiplier = 0.001;
+var day = {
+  number: 1,
+  countdown: 0,
+  running: false,
+  end: false
+}
+
+// actioners (i really need to change this name)
+
+var foodFactory = {
+  oldTime: new Date().getTime(),
+  active: false,
+  multiplier: 0.001
+}
+
+var dispensery = {
+  oldTime: new Date().getTime(),
+  active: false,
+  multiplier: 0.001
+}
+
 // ui variables
-var NEFMessage = true;
+var uiVars = {
+  NEFMessage: true
+};
+
 // misc variables
 var kittenFedDiff = 0;
+
+// messages shown
+var messagesShown = {
+  makeSureEnoughFoodEreday: false
+    // etc
+};
+
 
 // display loop functions
 function displayLoop() {
   $('#foodCount').html(Math.round(foodCount));
   $('#kittenCount').html(Math.round(kittenCount));
-  $('#dayCountdown').html(dayCountdown);
-  $('#dayNumber').html(dayNumber);
-  if (dayCountdown == 10 || dayCountdown == 9) {
+  $('#freeKittenCount').html(Math.round(freeKittenCount));
+  $('#dayCountdown').html(day.countdown);
+  $('#dayNumber').html(day.number);
+  if (day.countdown == 10 || day.countdown == 9) {
     $('#dayCountdownFeild').css('color', 'red');
-  } else if (dayCountdown == 60 || dayCountdown == 59) {
+  } else if (day.countdown == 60 || day.countdown == 59) {
     $('#dayCountdownFeild').css("color", "black");
   }
   setTimeout(displayLoop, 10);
@@ -56,47 +78,47 @@ function autoIncreaseEquation(multiplier, count, newTime, oldTime) {
 
 // daily functions
 function dayEvent() {
-  if (dayRunning == false) {
-    dayRunning = true;
-    dayCountdown = 60;
+  if (day.running == false) {
+    day.running = true;
+    day.countdown = 60;
 
     function dayCountdownFunction() {
-      if (dayCountdown > 0) {
-        dayCountdown--;
+      if (day.countdown > 0) {
+        day.countdown--;
         setTimeout(dayCountdownFunction, 1000);
       } else {
-        endDay = true;
+        day.end = true;
       }
     }
     dayCountdownFunction();
   }
-  if (endDay == true) {
-    endDay = false;
+  if (day.end == true) {
+    day.end = false;
     kittenFedDiff = doTheGoodDiff(kittenCount, foodCount);
     feedKittens(kittenCount, kittenFedDiff);
     kittenCount -= kittenFedDiff;
-    if (kittenFedDiff != 0) {
-      console.log(kittenFedDiff + " kittens were killed, make sure you have enough food to feed all of your kittens at the end of the day next time");
+    if (kittenFedDiff >= 1) {
+      console.log(Math.round(kittenFedDiff) + " kittens were killed, make sure you have enough food to feed all of your kittens at the end of the day next time");
     } else {
       console.log("No kittens were killed today!");
     }
-    dayNumber++;
-    dayRunning = false;
+    day.number++;
+    day.running = false;
   }
   setTimeout(dayEvent, 50);
 }
 
 // auto generaters/actioners
 function actioners() {
-  if (foodFactoryActive == true) {
+  if (foodFactory.active == true) {
     function foodFactoryAction() {
       var innerNewTime = new Date().getTime();
-      foodCount += autoIncreaseEquation(foodFactoryMultiplier, foodFactoryCount, innerNewTime, foodFactoryOldTime);
-      foodFactoryOldTime = innerNewTime;
+      foodCount += autoIncreaseEquation(foodFactory.multiplier, foodFactoryCount, innerNewTime, foodFactory.oldTime);
+      foodFactory.oldTime = innerNewTime;
     }
     foodFactoryAction();
   }
-  if (dispenseryActive == true) {
+  if (dispensery.active == true) {
     function dispenseryAction() {
       // nada hoy
     }
@@ -110,7 +132,7 @@ function actioners() {
 function onLoad() {
   // this stuff gets run only once on page load
   $('#notEnoughFood').hide();
-  NEFMessage = false;
+  uiVars.NEFMessage = false;
   displayLoop();
   dayEvent();
   actioners();
@@ -125,12 +147,12 @@ $('#putOutFood').click(function() {
   if (foodCount >= 1) {
     foodCount--;
     kittenCount++;
-  } else if (NEFMessage == false) {
-    NEFMessage = true;
+  } else if (uiVars.NEFMessage == false) {
+    uiVars.NEFMessage = true;
     $('#notEnoughFood').show();
     setTimeout(function() {
       $('#notEnoughFood').hide();
-      NEFMessage = false;
+      uiVars.NEFMessage = false;
     }, 3000);
   }
 });
