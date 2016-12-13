@@ -3,11 +3,6 @@ var count = {
   kittenFood: 0,
   kittens: {total: 0, occupied: 0, free: function() {return (count.kittens.total - count.kittens.occupied);}, fed: 0}
 }
-var foodCount = 0;
-var kittenCount = 0;
-var occupiedKittenCount = 0;
-var freeKittenCount = 0;
-var kittenFedCount = 0;
 
 // time(day) variables
 var day = {
@@ -50,9 +45,9 @@ var messagesShown = {
 
 // display loop functions
 function displayLoop() {
-  $('#foodCount').html(Math.round(foodCount));
-  $('#kittenCount').html(Math.round(kittenCount));
-  $('#freeKittenCount').html(Math.round(freeKittenCount));
+  $('#foodCount').html(Math.round(count.kittenFood));
+  $('#kittenCount').html(Math.round(count.kittens.total));
+  $('#freeKittenCount').html(Math.round(count.kittens.free));
   $('#dayCountdown').html(day.countdown);
   $('#dayNumber').html(day.number);
   if (day.countdown == 10 || day.countdown == 9) {
@@ -73,7 +68,7 @@ var doTheGoodDiff = function(kittens, food) {
 };
 
 function feedKittens(kittens, diff) {
-  foodCount -= kittens - diff;
+  count.kittenFood -= kittens - diff;
 }
 
 function autoIncreaseEquation(multiplier, count, newTime, oldTime) {
@@ -98,9 +93,9 @@ function dayEvent() {
   }
   if (day.end == true) {
     day.end = false;
-    kittenFedDiff = doTheGoodDiff(kittenCount, foodCount);
-    feedKittens(kittenCount, kittenFedDiff);
-    kittenCount -= kittenFedDiff;
+    kittenFedDiff = doTheGoodDiff(count.kittens.total, count.kittenFood);
+    feedKittens(count.kittens.total, kittenFedDiff);
+    count.kittens.total -= kittenFedDiff;
     if (kittenFedDiff >= 1) {
       console.log(Math.round(kittenFedDiff) + " kittens were killed, make sure you have enough food to feed all of your kittens at the end of the day next time");
     } else {
@@ -117,7 +112,7 @@ function actioners() {
   if (foodFactory.active == true) {
     function foodFactoryAction() {
       var innerNewTime = new Date().getTime();
-      foodCount += autoIncreaseEquation(foodFactory.multiplier, foodFactory.count, innerNewTime, foodFactory.oldTime);
+      count.kittenFood += autoIncreaseEquation(foodFactory.multiplier, foodFactory.count, innerNewTime, foodFactory.oldTime);
       foodFactory.oldTime = innerNewTime;
     }
     foodFactoryAction();
@@ -144,13 +139,13 @@ function onLoad() {
 
 // button actions
 $('#makeFood').click(function() {
-  foodCount++;
+  count.kittenFood++;
 });
 
 $('#putOutFood').click(function() {
-  if (foodCount >= 1) {
-    foodCount--;
-    kittenCount++;
+  if (count.kittenFood >= 1) {
+    count.kittenFood--;
+    count.kittens.total++;
   } else if (uiVars.NEFMessage == false) {
     uiVars.NEFMessage = true;
     $('#notEnoughFood').show();
