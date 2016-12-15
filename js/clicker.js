@@ -1,7 +1,14 @@
 // count variables other thea
 var count = {
   kittenFood: 0,
-  kittens: {total: 0, occupied: 0, free: function() {return (count.kittens.total - count.kittens.occupied);}, fed: 0}
+  kittens: {
+    total: 0,
+    occupied: 0,
+    free: function() {
+      return (count.kittens.total - count.kittens.occupied);
+    },
+    fed: 0
+  }
 }
 
 // time(day) variables
@@ -39,7 +46,7 @@ var kittenFedDiff = 0;
 // messages shown
 var messagesShown = {
   makeSureEnoughFoodEreday: false
-  // etc
+    // etc
 };
 
 

@@ -17,44 +17,45 @@
 </head>
 
 <body onload="onLoad()">
-  <h3 id="dayCountdownFeild"><span id="dayCountdown">0</span> seconds until day <span id="dayNumber">0</span> is over!</h3>
-  <div class="col-md-2">
-    <input id="makeFood" type="button" class="btn btn-primary btn-block" value="Make Food!">
-  </div>
-  <p class="feildTitle">
-    Kitten Food:
-  </p>
-  <p id="foodCount">
-    0
-  </p>
-  <div class="col-md-2">
-    <input id="putOutFood" type="button" class="btn btn-primary btn-block" value="Put Out Food!">
-  </div>
-  <p class="feildTitle">
-    Total Kittens:
-  </p>
-  <p id="kittenCount">
-    0
-  </p>
-  <p id="freeKittenCount">
-    0
-  </p>
-  <p id="notEnoughFood">
-    NOT ENOUGH FOOD!
-  </p>
-  <!-- <div class="col-md-2">
-    <input id="putOutFood" type="button" class="btn btn-primary btn-block" value="Put Out Food!">
-  </div>
-  <p class="feildTitle">
-    Kittens:
-  </p>
-  <p id="kittenCount">
-    0
-  </p> -->
-  <!-- main js for kitten clicker -->
-  <script src="js/clicker.js"></script>
-  <!-- bootstrap -->
-  <script src="js/bootstrap.min.js"></script>
+  <div class="container">
+    <!-- nav bar -->
+    <div class "row">
+      <div class="col-md-6">
+        <h3 id="dayCountdownFeild"><span id="dayCountdown">0</span> seconds until day <span id="dayNumber">0</span> is over!</h3>
+        <div class="col-md-6">
+          <input id="makeFood" type="button" class="btn btn-primary btn-block" value="Make Food!">
+        </div>
+        <p class="feildTitle">
+          Kitten Food:
+        </p>
+        <p id="foodCount">
+          0
+        </p>
+        <div class="col-md-6">
+          <input id="putOutFood" type="button" class="btn btn-primary btn-block" value="Put Out Food!">
+        </div>
+        <p class="feildTitle">
+          Total Kittens:
+        </p>
+        <p id="kittenCount">
+          0
+        </p>
+        <p id="freeKittenCount">
+          0
+        </p>
+        <p id="notEnoughFood">
+          NOT ENOUGH FOOD!
+        </p>
+      </div>
+      <div id="allocationFeild" class="col-md-6">
+        <h4>Allocate 100 kittens to a new food factory</h4>
+        <input id="allocate-foodFactory" type="button" class="btn btn-primary btn-block" value="Allocate!" </div>
+      </div>
+    </div>
+    <!-- main js for kitten clicker -->
+    <script src="js/clicker.js"></script>
+    <!-- bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
