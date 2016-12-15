@@ -1,7 +1,7 @@
 // count variables other thea
 var count = {
   kittenFood: 0,
-  kittens: {total: 0, occupied: 0, free: function() {return (count.kittens.total - count.kittens.occupied);}, fed: 0}
+  kittens: {total: 0, allocated: 0, free: function() {return (count.kittens.total - count.kittens.occupied);}, fed: 0}
 }
 
 // time(day) variables
@@ -18,14 +18,16 @@ var foodFactory = {
   oldTime: new Date().getTime(),
   active: false,
   multiplier: 0.001,
-  count: 0
+  count: 0,
+  ran: false
 }
 
 var dispensery = {
   oldTime: new Date().getTime(),
   active: false,
   multiplier: 0.001,
-  count: 0
+  count: 0,
+  ran: false
 }
 
 // ui variables
@@ -45,11 +47,13 @@ var messagesShown = {
 
 // display loop functions
 function displayLoop() {
+  // text updating
   $('#foodCount').html(Math.round(count.kittenFood));
   $('#kittenCount').html(Math.round(count.kittens.total));
   $('#freeKittenCount').html(Math.round(count.kittens.free));
   $('#dayCountdown').html(day.countdown);
   $('#dayNumber').html(day.number);
+  // ui changing
   if (day.countdown == 10 || day.countdown == 9) {
     $('#dayCountdownFeild').css('color', 'red');
   } else if (day.countdown == 60 || day.countdown == 59) {
@@ -111,6 +115,10 @@ function dayEvent() {
 function actioners() {
   if (foodFactory.active == true) {
     function foodFactoryAction() {
+      if (foodFactory.ran == false) {
+        foodFactory.oldTime = new Date().getTime();
+        foodFactory.ran = true;
+      }
       var innerNewTime = new Date().getTime();
       count.kittenFood += autoIncreaseEquation(foodFactory.multiplier, foodFactory.count, innerNewTime, foodFactory.oldTime);
       foodFactory.oldTime = innerNewTime;
@@ -119,7 +127,14 @@ function actioners() {
   }
   if (dispensery.active == true) {
     function dispenseryAction() {
-      // nada hoy
+      if (dispensery.ran == false) {
+        dispensery.oldTime = new Date().getTime();
+        dispensery.ran = true;
+      }
+      var innerNewTime = new Date().getTime();
+      count.kittens.total += autoIncreaseEquation(dispensery.multiplier, dispensery.count, innerNewTime, dispensery.oldTime);
+      count.kittenFood -= autoIncreaseEquation(dispensery.multiplier, dispensery.count, innerNewTime, dispensery.oldTime);
+      dispensery.oldTime = innerNewTime;
     }
     dispenseryAction();
   }
@@ -154,4 +169,11 @@ $('#putOutFood').click(function() {
       uiVars.NEFMessage = false;
     }, 3000);
   }
+});
+
+$('#allocateToFoodFactory').click(function() {
+  foodFactory.active = true;
+  foodFactory.count++;
+  count.kittens.allocated += 100;
+  
 });
