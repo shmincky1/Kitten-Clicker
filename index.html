@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <!-- some stuff -->
-  <meta charset="utf-8">
-  <!-- basic stuff -->
-  <title>Kitten Clicker</title>
-  <link rel="stylesheet" href="css/master.css">
-  <link rel="shortcut icon" href="favicon.png">
-  <!-- jquery -->
-  <script src="js/jquery.min.js"></script>
-  <!-- bootstrap -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-</head>
+  <head>
+    <!-- some stuff -->
+    <meta charset="utf-8">
+    <!-- basic stuff -->
+    <title>Kitten Clicker</title>
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="shortcut icon" href="favicon.png">
+    <!-- jquery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
 
-<body onload="onLoad()">
-  <div class="container">
-    <!-- nav bar -->
-    <div class "row">
-      <div class="col-md-6">
-        <h3 id="dayCountdownFeild"><span id="dayCountdown">0</span> seconds until day <span id="dayNumber">0</span> is over!</h3>
+  <body onload="onLoad()">
+    <div class="container">
+      <div class="col-md-12">
+        <h1 id="dayCountdownFeild"><span id="dayCountdown">0</span> seconds until day <span id="dayNumber">0</span> is over!</h1>
+      </div>
+      <div class="separator col-md-12"></div>
+      <div id="allocationFeild" class="col-md-6">
+        <h2>Allocate Things!</h2>
+        <br>
+        <div class="col-md-12">
+          <h4>Allocate 100 kittens to a new food factory</h4>
+          <input id="allocate-foodFactory" type="button" class="btn btn-primary btn-block" value="Allocate!">
+        </div>
+      </div>
+      <div id="purchaseFeild" class="col-md-6">
+        <h2>Buy Things!</h2>
+        <br>
         <div class="col-md-6">
           <input id="makeFood" type="button" class="btn btn-primary btn-block" value="Make Food!">
         </div>
@@ -47,15 +58,16 @@
           NOT ENOUGH FOOD!
         </p>
       </div>
-      <div id="allocationFeild" class="col-md-6">
-        <h4>Allocate 100 kittens to a new food factory</h4>
-        <input id="allocate-foodFactory" type="button" class="btn btn-primary btn-block" value="Allocate!" </div>
+      <div class="col-md-4 notif-well-container">
+        <div class="well notif-well">
+
+        </div>
       </div>
     </div>
     <!-- main js for kitten clicker -->
     <script src="js/clicker.js"></script>
     <!-- bootstrap -->
     <script src="js/bootstrap.min.js"></script>
-</body>
+  </body>
 
 </html>

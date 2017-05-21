@@ -1,9 +1,35 @@
-*:focus {
-  outline: none;
+/*animations*/
+
+@keyframes notif-fade-in {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
 }
 
 .feildTitle, .actionButton {
   display: inline;
+}
+
+div.notif-well-container {
+  margin-top: 2em;
+}
+
+div.notif-well {
+  height: 40em;
+  overflow: scroll;
+}
+
+.notification {
+  animation: notif-fade-in 1s ease;
+}
+
+div.separator {
+  height: 1px;
+  background: lightgrey;
+  margin: 1em;
 }
 
 #notEnoughFood {
@@ -12,6 +38,18 @@
   font-size: 1.5em;
 }
 
+#dayCountdownFeild {
+  text-align: center;
+}
+
 #allocationFeild {
-  background: blue;
+  background: #ddd;
+}
+
+#purchaseFeild {
+  background: #eee;
+}
+
+div {
+  border: black 1px;
 }

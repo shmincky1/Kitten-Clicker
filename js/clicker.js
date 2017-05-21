@@ -39,7 +39,7 @@ var dispensery = {
 
 // ui variables
 var uiVars = {
-  NEFMessage: true
+  notEnoughFoodMessage: true
 };
 
 // misc variables
@@ -48,7 +48,7 @@ var kittenFedDiff = 0;
 // messages shown
 var messagesShown = {
   makeSureEnoughFoodEreday: false
-    // etc
+  // etc
 };
 
 
@@ -66,7 +66,7 @@ function displayLoop() {
   } else if (day.countdown == 60 || day.countdown == 59) {
     $('#dayCountdownFeild').css("color", "black");
   }
-  setTimeout(displayLoop, 10);
+  setTimeout(displayLoop, 35);
 }
 
 // universal helper functions
@@ -85,6 +85,11 @@ function feedKittens(kittens, diff) {
 function autoIncreaseEquation(multiplier, count, newTime, oldTime) {
   return multiplier * count * (newTime - oldTime);
 }
+
+function addNotification(messageTitle, messageContent, messageSeverity) {
+  $('.notif-well').prepend('<div class="notification panel panel-' + messageSeverity + '"><div class="panel-heading">' + messageTitle + '</div><div class="panel-body">' + messageContent + '</div></div>');
+}
+
 
 // daily functions
 function dayEvent() {
@@ -153,7 +158,7 @@ function actioners() {
 function onLoad() {
   // this stuff gets run only once on page load
   $('#notEnoughFood').hide();
-  uiVars.NEFMessage = false;
+  uiVars.notEnoughFoodMessage = false;
   displayLoop();
   dayEvent();
   actioners();
@@ -168,19 +173,27 @@ $('#putOutFood').click(function() {
   if (count.kittenFood >= 1) {
     count.kittenFood--;
     count.kittens.total++;
-  } else if (uiVars.NEFMessage == false) {
-    uiVars.NEFMessage = true;
+  } else if (uiVars.notEnoughFoodMessage == false) {
+    uiVars.notEnoughFoodMessage = true;
     $('#notEnoughFood').show();
     setTimeout(function() {
       $('#notEnoughFood').hide();
-      uiVars.NEFMessage = false;
+      uiVars.notEnoughFoodMessage = false;
     }, 3000);
   }
 });
 
 $('#allocateToFoodFactory').click(function() {
-  foodFactory.active = true;
-  foodFactory.count++;
-  count.kittens.allocated += 100;
-
+  if (count.kittens.free >= 100) {
+    foodFactory.active = true;
+    foodFactory.count++;
+    count.kittens.allocated += 100;
+  } else if (uiVars.notEnoughKittensMessage == false) {
+    uiVars.notEnoughKittensMessage = true;
+    $('#notEnoughKittens').show();
+    setTimeout(function() {
+      $('#notEnoughKittens').hide();
+      uiVars.notEnoughKittensMessage = false;
+    }, 3000);
+  }
 });
